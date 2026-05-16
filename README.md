@@ -1,54 +1,87 @@
 # Pulse Social — Agency Website
 
-A single-file, dependency-free marketing site for a fictional social media management agency. Built as one `index.html` with embedded CSS and vanilla JS — no build step, no frameworks.
+A modern, multi-page marketing site for a fictional social media management agency. Five real HTML pages with shared CSS/JS, no frameworks, no build step.
 
-## Preview
+## Live
 
-Open the file in a browser:
+Deployed to Cloudflare Workers (assets-only):
+**https://pulse-social-agency.sja-affu765.workers.dev**
 
-```bash
-open index.html
-```
+## Pages
 
-Or serve it locally:
+| Route               | File                | Highlights                                                                |
+|---------------------|---------------------|---------------------------------------------------------------------------|
+| `/`                 | `index.html`        | Hero with floating stat cards, logo strip, animated stats, value props, services preview, testimonials, CTA |
+| `/about.html`       | `about.html`        | Story, mission/vision/values, company timeline (2023→2026), 6-person team grid, awards |
+| `/services.html`    | `services.html`     | 6 detailed service cards with feature lists, 4-step process, platforms strip, 3-tier pricing, FAQ accordion |
+| `/careers.html`     | `careers.html`      | Why-work-here perks (9), 5 open positions with salary bands, 4-step hiring process, team testimonials |
+| `/portfolio.html`   | `portfolio.html`    | Filterable 9-card grid (All / IG / TikTok / LinkedIn / Ads), featured case study with metrics, testimonials |
 
-```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
-```
+## What's in it
 
-## What's inside
-
-- **5 sections** with sticky-nav anchor routing: Home, About, Services, Careers, Portfolio
-- **Hero** with animated stat cards and a "Book a Call" CTA
-- **Quick stats bar** — 50+ Clients · 1M+ Reach · 3 Yrs
-- **About / Team** with mission statement and 3 team cards (placeholder avatars + social icons)
-- **Services** — 6-card grid (Management, Content, Paid Ads, Strategy, Influencer, Analytics) with hover lift
-- **Careers** — 3 sample job listings (Coordinator, Content Creator, Designer) with `mailto:` apply CTAs
-- **Portfolio** — 6 case-study cards with hover overlay
-- **CTA banner + footer** with quick links, social icons, and contact email
+- **Sticky nav** with active-page highlight, mobile hamburger menu
+- **Gradient hero** on every page with mesh-light blobs and floating UI cards on home
+- **Stat counters** that animate in via IntersectionObserver
+- **Hover micro-interactions** on every card, button, and link
+- **Pricing tiers** with featured-card emphasis
+- **FAQ accordion** using native `<details>` elements
+- **Portfolio filters** with JS-driven category toggling
+- **Newsletter form** with optimistic UI
+- **Footer** with newsletter signup, social icons, sitemap
 
 ## Design
 
-- **Palette:** deep navy primary, coral/orange accent, white text
+- **Palette:** deep navy (`#0a1428` → `#1e3a6f`) primary, coral (`#ff6b4a` → `#ff8b6e`) accent
 - **Type:** Inter (body), Poppins (headings) via Google Fonts
-- **Style:** clean, modern agency vibe — bold type, subtle gradients, soft shadows, smooth hover transitions
-- **Motion:** smooth scroll between sections, IntersectionObserver fade-ins on scroll, animated pulse dot in the hero eyebrow
-- **Accessibility:** semantic landmarks, ARIA labels on icon buttons, respects `prefers-reduced-motion`
+- **Motion:** scroll-triggered fade-ins, floating cards, animated stat counters, pulse indicator — all respect `prefers-reduced-motion`
 
 ## Responsive
 
-Mobile-first layout with breakpoints at 720px and 960px. Mobile nav collapses into a hamburger menu; multi-column grids fold to 2-up and then 1-up.
+Mobile-first with three breakpoints:
+- `≤1024px` — minor footer adjustments
+- `≤960px` — hero visual hides; team/services/testimonials/perks/values fold to 2-up; pricing stacks
+- `≤720px` — nav collapses to hamburger; everything stacks to 1-up; FAQ and timeline simplify
 
-## Stack
+## Project structure
 
-- Single `index.html` file
-- Embedded `<style>` and `<script>` — no external CSS/JS dependencies
-- Only network call is the Google Fonts stylesheet
+```
+public/
+├── index.html          # Home
+├── about.html          # About & Team
+├── services.html       # Services, process, pricing, FAQ
+├── careers.html        # Open roles, perks, hiring process
+├── portfolio.html      # Filterable case study grid
+└── assets/
+    ├── styles.css      # Shared stylesheet (~30 KB)
+    └── app.js          # Shared script — nav, reveals, counters, filters
+wrangler.toml           # Cloudflare Worker (assets-only)
+```
+
+## Local preview
+
+```bash
+# Quick: just open a page
+open public/index.html
+
+# Better: serve so absolute paths (`/about.html`, `/assets/...`) work
+python3 -m http.server -d public 8000
+# then visit http://localhost:8000
+
+# Or use wrangler dev
+wrangler dev
+```
+
+## Deploy
+
+```bash
+wrangler deploy
+```
+
+Configured in [wrangler.toml](wrangler.toml). Assets-only Worker — no server code, just static files served from `./public`.
 
 ## Customizing
 
 - **Brand name / logo:** search for `Pulse Social` and the `.logo-mark` letter
-- **Colors:** edit the CSS custom properties in `:root` (`--navy-900`, `--coral`, etc.)
-- **Copy / team / jobs / portfolio:** all content lives directly in the markup — no JSON or templating
+- **Colors:** edit the CSS custom properties in `:root` of `public/assets/styles.css`
+- **Copy / team / jobs / portfolio:** all content lives directly in each page's markup — no JSON or templating
 - **Contact email:** replace `hello@pulsesocial.example` and `careers@pulsesocial.example`
