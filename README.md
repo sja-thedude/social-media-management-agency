@@ -2,20 +2,27 @@
 
 A modern, multi-page marketing site for a fictional social media management agency. Five real HTML pages with shared CSS/JS, no frameworks, no build step.
 
-## Live
+## 🔗 Live site
 
-Deployed to Cloudflare Workers (assets-only):
-**https://pulse-social-agency.sja-affu765.workers.dev**
+### 👉 **<https://pulse-social-agency.sja-affu765.workers.dev>**
+
+Deployed to Cloudflare Workers (assets-only). Open any page directly:
+
+- 🏠 [Home](https://pulse-social-agency.sja-affu765.workers.dev/)
+- 👋 [About](https://pulse-social-agency.sja-affu765.workers.dev/about)
+- 🛠️ [Services](https://pulse-social-agency.sja-affu765.workers.dev/services)
+- 💼 [Careers](https://pulse-social-agency.sja-affu765.workers.dev/careers)
+- 🎨 [Portfolio](https://pulse-social-agency.sja-affu765.workers.dev/portfolio)
 
 ## Pages
 
-| Route               | File                | Highlights                                                                |
-|---------------------|---------------------|---------------------------------------------------------------------------|
-| `/`                 | `index.html`        | Hero with floating stat cards, logo strip, animated stats, value props, services preview, testimonials, CTA |
-| `/about.html`       | `about.html`        | Story, mission/vision/values, company timeline (2023→2026), 6-person team grid, awards |
-| `/services.html`    | `services.html`     | 6 detailed service cards with feature lists, 4-step process, platforms strip, 3-tier pricing, FAQ accordion |
-| `/careers.html`     | `careers.html`      | Why-work-here perks (9), 5 open positions with salary bands, 4-step hiring process, team testimonials |
-| `/portfolio.html`   | `portfolio.html`    | Filterable 9-card grid (All / IG / TikTok / LinkedIn / Ads), featured case study with metrics, testimonials |
+| Route          | File                | Highlights                                                                |
+|----------------|---------------------|---------------------------------------------------------------------------|
+| `/`            | `index.html`        | Hero with floating stat cards, logo strip, animated stats, value props, services preview, testimonials, CTA |
+| `/about`       | `about.html`        | Story, mission/vision/values, company timeline (2023→2026), 6-person team grid, awards |
+| `/services`    | `services.html`     | 6 detailed service cards with feature lists, 4-step process, platforms strip, 3-tier pricing, FAQ accordion |
+| `/careers`     | `careers.html`      | Why-work-here perks (9), 5 open positions with salary bands, 4-step hiring process, team testimonials |
+| `/portfolio`   | `portfolio.html`    | Filterable 9-card grid (All / IG / TikTok / LinkedIn / Ads), featured case study with metrics, testimonials |
 
 ## What's in it
 
