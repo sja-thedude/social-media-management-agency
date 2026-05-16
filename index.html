@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Pulse Social — We grow brands on social media. Strategy, content, paid ads, and analytics." />
+  <title>Pulse Social — We Grow Brands on Social Media</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ============ RESET & BASE ============ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    /* ============ TOKENS ============ */
+    :root {
+      --navy-900: #0a1428;
+      --navy-800: #0f1e3d;
+      --navy-700: #152a52;
+      --navy-600: #1e3a6f;
+      --coral: #ff6b4a;
+      --coral-light: #ff8b6e;
+      --coral-dark: #e54a28;
+      --white: #ffffff;
+      --off-white: #f7f8fb;
+      --gray-100: #eef1f6;
+      --gray-300: #c7cdd9;
+      --gray-500: #6b7488;
+      --text: #1a2238;
+      --text-muted: #5a6378;
+      --bg: #ffffff;
+      --shadow-sm: 0 2px 8px rgba(10, 20, 40, 0.06);
+      --shadow-md: 0 8px 24px rgba(10, 20, 40, 0.1);
+      --shadow-lg: 0 20px 50px rgba(10, 20, 40, 0.18);
+      --radius: 14px;
+      --radius-lg: 22px;
+      --gradient-hero: linear-gradient(135deg, #0a1428 0%, #152a52 60%, #1e3a6f 100%);
+      --gradient-accent: linear-gradient(135deg, #ff6b4a 0%, #ff8b6e 100%);
+      --container: 1200px;
+    }
+
+    /* ============ TYPOGRAPHY ============ */
+    h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 1.2; color: var(--text); }
+    h1 { font-size: clamp(2.25rem, 5vw + 1rem, 4.5rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem); letter-spacing: -0.01em; }
+    h3 { font-size: 1.25rem; }
+    p  { color: var(--text-muted); }
+
+    /* ============ LAYOUT HELPERS ============ */
+    .container {
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+    section { padding: 5rem 0; }
+    .section-head {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 3rem;
+    }
+    .section-head .eyebrow {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 0.85rem;
+    }
+    .section-head p { margin-top: 0.9rem; font-size: 1.05rem; }
+
+    /* ============ BUTTONS ============ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.95rem 1.75rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 999px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--gradient-accent);
+      color: var(--white);
+      box-shadow: 0 10px 25px rgba(255, 107, 74, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(255, 107, 74, 0.45);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.7);
+    }
+    .btn-ghost {
+      color: var(--coral);
+      padding: 0.6rem 0;
+      font-weight: 600;
+    }
+    .btn-ghost::after { content: " →"; transition: transform 0.25s ease; display: inline-block; }
+    .btn-ghost:hover::after { transform: translateX(4px); }
+
+    /* ============ NAVBAR ============ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      border-bottom: 1px solid rgba(10, 20, 40, 0.06);
+      transition: box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .nav.scrolled { box-shadow: var(--shadow-sm); }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--navy-900);
+    }
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--gradient-accent);
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(255, 107, 74, 0.4);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text);
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 2px;
+      background: var(--coral);
+      transition: width 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--coral); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta { padding: 0.6rem 1.2rem; font-size: 0.88rem; }
+    .nav-toggle {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--off-white);
+      color: var(--navy-900);
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: currentColor;
+      position: relative;
+    }
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: currentColor;
+      transition: transform 0.25s ease;
+    }
+    .nav-toggle span::before { top: -6px; }
+    .nav-toggle span::after { top: 6px; }
+    .nav.open .nav-toggle span { background: transparent; }
+    .nav.open .nav-toggle span::before { transform: translateY(6px) rotate(45deg); }
+    .nav.open .nav-toggle span::after { transform: translateY(-6px) rotate(-45deg); }
+
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      padding: 9rem 0 6rem;
+      background: var(--gradient-hero);
+      color: var(--white);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 460px;
+      height: 460px;
+      background: radial-gradient(circle, rgba(255, 107, 74, 0.45) 0%, transparent 65%);
+      border-radius: 50%;
+      filter: blur(20px);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -160px;
+      left: -100px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(30, 58, 111, 0.7) 0%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(30px);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .hero h1 { color: var(--white); margin-bottom: 1.5rem; }
+    .hero h1 .accent {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p.lead {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 2.25rem;
+      max-width: 540px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 1.4rem;
+    }
+    .hero-eyebrow .pulse {
+      width: 8px;
+      height: 8px;
+      background: var(--coral);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(255, 107, 74, 0.7);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(255, 107, 74, 0.7); }
+      70%  { box-shadow: 0 0 0 10px rgba(255, 107, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 107, 74, 0); }
+    }
+    .hero-visual {
+      position: relative;
+      height: 420px;
+    }
+    .hero-card {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      transition: transform 0.4s ease;
+    }
+    .hero-card:hover { transform: translateY(-6px) rotate(0deg) !important; }
+    .hero-card .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 0.5rem;
+    }
+    .hero-card .metric {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .hero-card .trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      color: #4ade80;
+      margin-top: 0.4rem;
+    }
+    .hero-card-1 { top: 10px; left: 0; width: 220px; transform: rotate(-4deg); }
+    .hero-card-2 { top: 110px; right: 20px; width: 240px; transform: rotate(3deg); }
+    .hero-card-3 { bottom: 30px; left: 60px; width: 260px; transform: rotate(-2deg); }
+    .hero-card-3 .bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 60px;
+      margin-top: 0.6rem;
+    }
+    .hero-card-3 .bars span {
+      flex: 1;
+      background: var(--gradient-accent);
+      border-radius: 3px;
+      opacity: 0.8;
+    }
+
+    /* ============ STATS ============ */
+    .stats {
+      background: var(--off-white);
+      padding: 3rem 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      text-align: center;
+    }
+    .stat .num {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1;
+    }
+    .stat .label {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    /* ============ INTRO ============ */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .intro-grid .eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 0.85rem;
+    }
+    .intro-grid h2 { margin-bottom: 1.25rem; }
+    .intro-grid p { font-size: 1.05rem; margin-bottom: 1rem; }
+    .intro-features {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: grid;
+      gap: 0.8rem;
+    }
+    .intro-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .intro-features li::before {
+      content: "✓";
+      width: 26px;
+      height: 26px;
+      background: var(--gradient-accent);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .intro-art {
+      position: relative;
+      aspect-ratio: 4/5;
+      max-width: 460px;
+      margin-left: auto;
+      border-radius: var(--radius-lg);
+      background: var(--gradient-hero);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .intro-art::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(255, 107, 74, 0.35), transparent 60%);
+    }
+    .intro-art-overlay {
+      position: absolute;
+      inset: auto 1.5rem 1.5rem 1.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+    }
+    .intro-art-overlay .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .intro-art-overlay .row:last-child { margin-bottom: 0; }
+    .intro-art-overlay .row span:first-child { font-size: 0.85rem; color: var(--text-muted); }
+    .intro-art-overlay .row span:last-child { font-weight: 700; color: var(--text); font-family: 'Poppins', sans-serif; }
+
+    /* ============ ABOUT ============ */
+    .about { background: var(--off-white); }
+    .about-story {
+      max-width: 780px;
+      margin: 0 auto 4rem;
+      text-align: center;
+    }
+    .about-story h2 { margin-bottom: 1.25rem; }
+    .about-story p { font-size: 1.1rem; margin-bottom: 1rem; }
+    .mission {
+      margin-top: 2.5rem;
+      padding: 2rem;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border-left: 4px solid var(--coral);
+      text-align: left;
+      box-shadow: var(--shadow-sm);
+    }
+    .mission .label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 0.5rem;
+    }
+    .mission p {
+      font-size: 1.1rem;
+      color: var(--text);
+      font-style: italic;
+      margin: 0;
+    }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .team-card {
+      background: var(--white);
+      padding: 2.25rem 1.5rem;
+      text-align: center;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin: 0 auto 1.25rem;
+      display: grid;
+      place-items: center;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      color: var(--white);
+      box-shadow: 0 10px 25px rgba(10, 20, 40, 0.15);
+    }
+    .avatar.a1 { background: linear-gradient(135deg, #ff6b4a, #ff8b6e); }
+    .avatar.a2 { background: linear-gradient(135deg, #1e3a6f, #2d5aa0); }
+    .avatar.a3 { background: linear-gradient(135deg, #152a52, #ff6b4a); }
+    .team-card h3 { margin-bottom: 0.25rem; }
+    .team-card .role {
+      color: var(--coral);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.85rem;
+    }
+    .team-card .bio { font-size: 0.92rem; margin-bottom: 1.25rem; }
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 0.65rem;
+    }
+    .socials a {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--off-white);
+      color: var(--navy-700);
+      display: grid;
+      place-items: center;
+      transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    }
+    .socials a:hover {
+      background: var(--gradient-accent);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+    .socials svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ============ SERVICES ============ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+    .service-card {
+      background: var(--white);
+      padding: 2.25rem 1.75rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-100);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gradient-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-md);
+      border-color: transparent;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: rgba(255, 107, 74, 0.1);
+      color: var(--coral);
+      display: grid;
+      place-items: center;
+      font-size: 1.55rem;
+      margin-bottom: 1.25rem;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .service-card:hover .service-icon {
+      background: var(--gradient-accent);
+      color: var(--white);
+    }
+    .service-card h3 { margin-bottom: 0.6rem; }
+    .service-card p { font-size: 0.95rem; }
+
+    /* ============ HIRING ============ */
+    .hiring { background: var(--off-white); }
+    .jobs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .job-card {
+      background: var(--white);
+      padding: 2rem 1.75rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-100);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .job-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+    .job-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(30, 58, 111, 0.08);
+      color: var(--navy-700);
+      letter-spacing: 0.02em;
+    }
+    .tag.remote { background: rgba(255, 107, 74, 0.12); color: var(--coral-dark); }
+    .job-card h3 { margin-bottom: 0.65rem; }
+    .job-card p { font-size: 0.95rem; flex: 1; margin-bottom: 1.5rem; }
+    .job-card .btn {
+      align-self: flex-start;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.88rem;
+    }
+
+    /* ============ PORTFOLIO ============ */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .portfolio-card {
+      position: relative;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+    .portfolio-thumb {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 3rem;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: -0.02em;
+    }
+    .portfolio-thumb.p1 { background: linear-gradient(135deg, #0a1428, #1e3a6f); }
+    .portfolio-thumb.p2 { background: linear-gradient(135deg, #ff6b4a, #e54a28); }
+    .portfolio-thumb.p3 { background: linear-gradient(135deg, #152a52, #ff8b6e); }
+    .portfolio-thumb.p4 { background: linear-gradient(135deg, #1e3a6f, #ff6b4a); }
+    .portfolio-thumb.p5 { background: linear-gradient(135deg, #0f1e3d, #2d5aa0); }
+    .portfolio-thumb.p6 { background: linear-gradient(135deg, #e54a28, #0a1428); }
+    .portfolio-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.25rem;
+      background: linear-gradient(to top, rgba(10, 20, 40, 0.92), transparent);
+      color: var(--white);
+      transition: transform 0.35s ease;
+    }
+    .portfolio-info .platform {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral-light);
+      margin-bottom: 0.35rem;
+    }
+    .portfolio-info h3 { color: var(--white); margin-bottom: 0.2rem; font-size: 1.1rem; }
+    .portfolio-info .result {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 20, 40, 0.85);
+      backdrop-filter: blur(6px);
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .portfolio-overlay span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.6rem;
+      background: var(--gradient-accent);
+      color: var(--white);
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transform: translateY(8px);
+      transition: transform 0.35s ease;
+    }
+    .portfolio-card:hover .portfolio-overlay { opacity: 1; }
+    .portfolio-card:hover .portfolio-overlay span { transform: translateY(0); }
+
+    /* ============ CTA BANNER ============ */
+    .cta-banner {
+      background: var(--gradient-hero);
+      color: var(--white);
+      padding: 4.5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 107, 74, 0.3), transparent 65%);
+      border-radius: 50%;
+    }
+    .cta-banner-inner {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .cta-banner h2 { color: var(--white); margin-bottom: 0.5rem; }
+    .cta-banner p { color: rgba(255, 255, 255, 0.75); margin: 0; }
+
+    /* ============ FOOTER ============ */
+    .footer {
+      background: var(--navy-900);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 4rem 0 1.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer .logo { color: var(--white); margin-bottom: 1rem; }
+    .footer-brand p { color: rgba(255, 255, 255, 0.6); font-size: 0.95rem; max-width: 320px; }
+    .footer h4 {
+      color: var(--white);
+      font-size: 1rem;
+      margin-bottom: 1.1rem;
+    }
+    .footer ul { list-style: none; display: grid; gap: 0.6rem; }
+    .footer ul a {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+    .footer ul a:hover { color: var(--coral-light); }
+    .footer .socials a {
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .footer .socials a:hover {
+      background: var(--gradient-accent);
+      color: var(--white);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .footer-bottom a { color: rgba(255, 255, 255, 0.7); }
+    .footer-bottom a:hover { color: var(--coral-light); }
+
+    /* ============ ANIMATIONS ============ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal.delay-1 { transition-delay: 0.08s; }
+    .reveal.delay-2 { transition-delay: 0.16s; }
+    .reveal.delay-3 { transition-delay: 0.24s; }
+    .reveal.delay-4 { transition-delay: 0.32s; }
+    .reveal.delay-5 { transition-delay: 0.4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .hero-eyebrow .pulse { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .intro-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .intro-art { max-width: 100%; margin: 0 auto; }
+      .team-grid, .services-grid, .jobs, .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 720px) {
+      section { padding: 4rem 0; }
+      .hero { padding: 7rem 0 4rem; }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: var(--white);
+        padding: 1rem 1.25rem;
+        border-top: 1px solid var(--gray-100);
+        box-shadow: var(--shadow-sm);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+      }
+      .nav-links li { padding: 0.6rem 0; border-bottom: 1px solid var(--gray-100); }
+      .nav-links li:last-child { border-bottom: none; padding-top: 1rem; }
+      .nav-links .nav-cta { display: inline-flex; align-self: flex-start; }
+      .nav.open .nav-links { max-height: 460px; padding: 1rem 1.25rem 1.5rem; }
+      .nav-toggle { display: inline-flex; }
+      .stats-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .team-grid, .services-grid, .jobs, .portfolio-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .cta-banner-inner { flex-direction: column; text-align: center; }
+      .mission { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#home" class="logo" aria-label="Pulse Social home">
+        <span class="logo-mark">P</span>
+        <span>Pulse Social</span>
+      </a>
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#careers">Careers</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact" class="btn btn-primary nav-cta">Book a Call</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ HERO / HOME ============ -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <span class="hero-eyebrow reveal"><span class="pulse"></span> Booking Q3 2026 partners</span>
+          <h1 class="reveal delay-1">We Grow Brands on <span class="accent">Social Media</span></h1>
+          <p class="lead reveal delay-2">
+            Strategy, content, paid ads and analytics — all under one roof. We turn scrolls into customers
+            and followers into a community that actually shows up for you.
+          </p>
+          <div class="hero-actions reveal delay-3">
+            <a href="#contact" class="btn btn-primary">Book a Call</a>
+            <a href="#portfolio" class="btn btn-outline">See Our Work</a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal delay-2" aria-hidden="true">
+          <div class="hero-card hero-card-1">
+            <div class="label">Followers</div>
+            <div class="metric">128.4K</div>
+            <div class="trend">▲ +24.3% this month</div>
+          </div>
+          <div class="hero-card hero-card-2">
+            <div class="label">Engagement</div>
+            <div class="metric">9.7%</div>
+            <div class="trend">▲ +3.1pts vs. avg</div>
+          </div>
+          <div class="hero-card hero-card-3">
+            <div class="label">Reach (last 7 days)</div>
+            <div class="metric">412K</div>
+            <div class="bars">
+              <span style="height:40%"></span>
+              <span style="height:60%"></span>
+              <span style="height:48%"></span>
+              <span style="height:78%"></span>
+              <span style="height:65%"></span>
+              <span style="height:88%"></span>
+              <span style="height:100%"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <div class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat reveal">
+          <div class="num">50+</div>
+          <div class="label">Clients Served</div>
+        </div>
+        <div class="stat reveal delay-1">
+          <div class="num">1M+</div>
+          <div class="label">Monthly Reach</div>
+        </div>
+        <div class="stat reveal delay-2">
+          <div class="num">3 Yrs</div>
+          <div class="label">In Business</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ INTRO ============ -->
+  <section>
+    <div class="container">
+      <div class="intro-grid">
+        <div class="reveal">
+          <span class="eyebrow">Why Pulse</span>
+          <h2>Real strategy. Real growth. No fluff.</h2>
+          <p>
+            We're not another "post-and-pray" agency. Every campaign starts with a clear goal,
+            an audience we've actually studied, and a plan you can measure.
+          </p>
+          <ul class="intro-features">
+            <li>Dedicated strategist for every account</li>
+            <li>Original content created in-house, weekly</li>
+            <li>Transparent monthly reporting — no jargon</li>
+            <li>ROI-focused paid social across Meta &amp; TikTok</li>
+          </ul>
+        </div>
+        <div class="reveal delay-2">
+          <div class="intro-art">
+            <div class="intro-art-overlay">
+              <div class="row"><span>Avg. Engagement Lift</span><span>+247%</span></div>
+              <div class="row"><span>Avg. Follower Growth</span><span>+180%</span></div>
+              <div class="row"><span>Client Retention</span><span>96%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-story reveal">
+        <span class="eyebrow" style="display:inline-block;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);margin-bottom:.85rem;">About Us</span>
+        <h2>A small team obsessed with big results.</h2>
+        <p>
+          Pulse Social started in 2023 as a two-person operation in a coffee shop. Three years later,
+          we're a tight-knit team of strategists, creators, and analysts who've grown brands from
+          zero to seven figures in revenue — without burning out the founders.
+        </p>
+        <div class="mission">
+          <div class="label">Our Mission</div>
+          <p>
+            To make social media feel less like a chore and more like the unfair advantage it should be —
+            for every brand we touch.
+          </p>
+        </div>
+      </div>
+
+      <h2 class="reveal" style="text-align:center; margin-bottom: 2.5rem;">Meet the Team</h2>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="avatar a1">AM</div>
+          <h3>Ava Martinez</h3>
+          <div class="role">Founder &amp; Lead Strategist</div>
+          <p class="bio">Ex-agency strategist who's launched campaigns for 40+ DTC brands. Spreadsheet enthusiast.</p>
+          <div class="socials">
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V10.5H5.67v7.84h2.67zM7 9.34a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9V14.1c0-2.55-1.36-3.74-3.18-3.74-1.47 0-2.13.81-2.5 1.38v-1.18h-2.66c.04.76 0 7.78 0 7.78h2.66v-4.37c0-.24.02-.48.09-.65.19-.48.62-.97 1.36-.97.96 0 1.34.73 1.34 1.8v4.19h2.69z"/></svg></a>
+            <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22.46 5.92c-.77.34-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.58 8.58 0 0 1-2.72 1.04A4.28 4.28 0 0 0 11.8 9.2 12.14 12.14 0 0 1 3 4.7a4.28 4.28 0 0 0 1.32 5.71 4.25 4.25 0 0 1-1.94-.54v.05a4.28 4.28 0 0 0 3.43 4.2 4.3 4.3 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.97A8.59 8.59 0 0 1 2 18.95a12.12 12.12 0 0 0 6.56 1.92c7.88 0 12.19-6.53 12.19-12.19l-.01-.56a8.7 8.7 0 0 0 2.13-2.2z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.51.01-4.75.07-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.82-.38.39-.62.76-.82 1.27-.15.39-.33.97-.38 2.04-.06 1.24-.07 1.6-.07 4.75s.01 3.51.07 4.75c.05 1.07.23 1.65.38 2.04.2.51.44.88.82 1.27.39.38.76.62 1.27.82.39.15.97.33 2.04.38 1.24.06 1.6.07 4.75.07s3.51-.01 4.75-.07c1.07-.05 1.65-.23 2.04-.38a3.4 3.4 0 0 0 1.27-.82c.38-.39.62-.76.82-1.27.15-.39.33-.97.38-2.04.06-1.24.07-1.6.07-4.75s-.01-3.51-.07-4.75c-.05-1.07-.23-1.65-.38-2.04-.2-.51-.44-.88-.82-1.27a3.4 3.4 0 0 0-1.27-.82c-.39-.15-.97-.33-2.04-.38-1.24-.06-1.6-.07-4.75-.07zm0 2.76a5.46 5.46 0 1 1 0 10.92 5.46 5.46 0 0 1 0-10.92zm0 1.62a3.84 3.84 0 1 0 0 7.68 3.84 3.84 0 0 0 0-7.68zm5.65-2.93a1.28 1.28 0 1 1 0 2.56 1.28 1.28 0 0 1 0-2.56z"/></svg></a>
+          </div>
+        </div>
+
+        <div class="team-card reveal delay-1">
+          <div class="avatar a2">JK</div>
+          <h3>Jordan Kim</h3>
+          <div class="role">Creative Director</div>
+          <p class="bio">Former TikTok creator with 500K+ followers. Knows what makes people stop scrolling.</p>
+          <div class="socials">
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V10.5H5.67v7.84h2.67zM7 9.34a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9V14.1c0-2.55-1.36-3.74-3.18-3.74-1.47 0-2.13.81-2.5 1.38v-1.18h-2.66c.04.76 0 7.78 0 7.78h2.66v-4.37c0-.24.02-.48.09-.65.19-.48.62-.97 1.36-.97.96 0 1.34.73 1.34 1.8v4.19h2.69z"/></svg></a>
+            <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22.46 5.92c-.77.34-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.58 8.58 0 0 1-2.72 1.04A4.28 4.28 0 0 0 11.8 9.2 12.14 12.14 0 0 1 3 4.7a4.28 4.28 0 0 0 1.32 5.71 4.25 4.25 0 0 1-1.94-.54v.05a4.28 4.28 0 0 0 3.43 4.2 4.3 4.3 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.97A8.59 8.59 0 0 1 2 18.95a12.12 12.12 0 0 0 6.56 1.92c7.88 0 12.19-6.53 12.19-12.19l-.01-.56a8.7 8.7 0 0 0 2.13-2.2z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.51.01-4.75.07-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.82-.38.39-.62.76-.82 1.27-.15.39-.33.97-.38 2.04-.06 1.24-.07 1.6-.07 4.75s.01 3.51.07 4.75c.05 1.07.23 1.65.38 2.04.2.51.44.88.82 1.27.39.38.76.62 1.27.82.39.15.97.33 2.04.38 1.24.06 1.6.07 4.75.07s3.51-.01 4.75-.07c1.07-.05 1.65-.23 2.04-.38a3.4 3.4 0 0 0 1.27-.82c.38-.39.62-.76.82-1.27.15-.39.33-.97.38-2.04.06-1.24.07-1.6.07-4.75s-.01-3.51-.07-4.75c-.05-1.07-.23-1.65-.38-2.04-.2-.51-.44-.88-.82-1.27a3.4 3.4 0 0 0-1.27-.82c-.39-.15-.97-.33-2.04-.38-1.24-.06-1.6-.07-4.75-.07zm0 2.76a5.46 5.46 0 1 1 0 10.92 5.46 5.46 0 0 1 0-10.92zm0 1.62a3.84 3.84 0 1 0 0 7.68 3.84 3.84 0 0 0 0-7.68zm5.65-2.93a1.28 1.28 0 1 1 0 2.56 1.28 1.28 0 0 1 0-2.56z"/></svg></a>
+          </div>
+        </div>
+
+        <div class="team-card reveal delay-2">
+          <div class="avatar a3">SP</div>
+          <h3>Sam Patel</h3>
+          <div class="role">Head of Paid Media</div>
+          <p class="bio">Has spent $4M+ on Meta and TikTok ads. Profitably. Lives for a 2x ROAS dashboard.</p>
+          <div class="socials">
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V10.5H5.67v7.84h2.67zM7 9.34a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9V14.1c0-2.55-1.36-3.74-3.18-3.74-1.47 0-2.13.81-2.5 1.38v-1.18h-2.66c.04.76 0 7.78 0 7.78h2.66v-4.37c0-.24.02-.48.09-.65.19-.48.62-.97 1.36-.97.96 0 1.34.73 1.34 1.8v4.19h2.69z"/></svg></a>
+            <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22.46 5.92c-.77.34-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.58 8.58 0 0 1-2.72 1.04A4.28 4.28 0 0 0 11.8 9.2 12.14 12.14 0 0 1 3 4.7a4.28 4.28 0 0 0 1.32 5.71 4.25 4.25 0 0 1-1.94-.54v.05a4.28 4.28 0 0 0 3.43 4.2 4.3 4.3 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.97A8.59 8.59 0 0 1 2 18.95a12.12 12.12 0 0 0 6.56 1.92c7.88 0 12.19-6.53 12.19-12.19l-.01-.56a8.7 8.7 0 0 0 2.13-2.2z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.51.01-4.75.07-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.82-.38.39-.62.76-.82 1.27-.15.39-.33.97-.38 2.04-.06 1.24-.07 1.6-.07 4.75s.01 3.51.07 4.75c.05 1.07.23 1.65.38 2.04.2.51.44.88.82 1.27.39.38.76.62 1.27.82.39.15.97.33 2.04.38 1.24.06 1.6.07 4.75.07s3.51-.01 4.75-.07c1.07-.05 1.65-.23 2.04-.38a3.4 3.4 0 0 0 1.27-.82c.38-.39.62-.76.82-1.27.15-.39.33-.97.38-2.04.06-1.24.07-1.6.07-4.75s-.01-3.51-.07-4.75c-.05-1.07-.23-1.65-.38-2.04-.2-.51-.44-.88-.82-1.27a3.4 3.4 0 0 0-1.27-.82c-.39-.15-.97-.33-2.04-.38-1.24-.06-1.6-.07-4.75-.07zm0 2.76a5.46 5.46 0 1 1 0 10.92 5.46 5.46 0 0 1 0-10.92zm0 1.62a3.84 3.84 0 1 0 0 7.68 3.84 3.84 0 0 0 0-7.68zm5.65-2.93a1.28 1.28 0 1 1 0 2.56 1.28 1.28 0 0 1 0-2.56z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">What We Do</span>
+        <h2>Everything you need to win on social.</h2>
+        <p>Six services, one team, zero hand-offs. Mix and match — or hand us the whole thing.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">📱</div>
+          <h3>Social Media Management</h3>
+          <p>Full-service account management — strategy, posting, community, the whole loop. We show up daily so you don't have to.</p>
+        </div>
+        <div class="service-card reveal delay-1">
+          <div class="service-icon">🎨</div>
+          <h3>Content Creation</h3>
+          <p>Scroll-stopping photo and video shot, edited, and packaged for every platform. Brand-safe, on-trend, original.</p>
+        </div>
+        <div class="service-card reveal delay-2">
+          <div class="service-icon">🎯</div>
+          <h3>Paid Ads (Meta &amp; TikTok)</h3>
+          <p>Performance ads with a clear ROAS goal. Creative testing, audience research, and weekly optimization built in.</p>
+        </div>
+        <div class="service-card reveal delay-1">
+          <div class="service-icon">🧭</div>
+          <h3>Brand Strategy</h3>
+          <p>Positioning, voice, and visual systems that make your brand instantly recognizable in a noisy feed.</p>
+        </div>
+        <div class="service-card reveal delay-2">
+          <div class="service-icon">🤝</div>
+          <h3>Influencer Marketing</h3>
+          <p>From micro to macro — we source, brief, and manage creator partnerships that drive measurable lift, not just impressions.</p>
+        </div>
+        <div class="service-card reveal delay-3">
+          <div class="service-icon">📊</div>
+          <h3>Analytics &amp; Reporting</h3>
+          <p>Monthly reports in plain English. You see what's working, what's not, and exactly where next month's budget should go.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CAREERS ============ -->
+  <section class="hiring" id="careers">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Careers</span>
+        <h2>Join Our Team</h2>
+        <p>We're remote-first, async-friendly, and growing. If you love social, you'll fit right in.</p>
+      </div>
+
+      <div class="jobs">
+        <article class="job-card reveal">
+          <div class="job-tags">
+            <span class="tag">Full-time</span>
+            <span class="tag remote">Remote</span>
+          </div>
+          <h3>Social Media Coordinator</h3>
+          <p>Run day-to-day posting, scheduling, and community management across 3–5 client accounts. 1+ year of agency or in-house experience preferred.</p>
+          <a class="btn btn-primary" href="mailto:careers@pulsesocial.example?subject=Application%20%E2%80%94%20Social%20Media%20Coordinator">Apply Now</a>
+        </article>
+
+        <article class="job-card reveal delay-1">
+          <div class="job-tags">
+            <span class="tag">Full-time</span>
+            <span class="tag remote">Hybrid</span>
+          </div>
+          <h3>Content Creator</h3>
+          <p>Shoot, edit, and publish short-form video for our clients. You're comfortable on-camera, on Premiere, and on a tight turnaround.</p>
+          <a class="btn btn-primary" href="mailto:careers@pulsesocial.example?subject=Application%20%E2%80%94%20Content%20Creator">Apply Now</a>
+        </article>
+
+        <article class="job-card reveal delay-2">
+          <div class="job-tags">
+            <span class="tag">Part-time</span>
+            <span class="tag remote">Remote</span>
+          </div>
+          <h3>Graphic Designer</h3>
+          <p>Design static and motion assets for paid and organic social. Strong typography skills and a portfolio that doesn't all look the same.</p>
+          <a class="btn btn-primary" href="mailto:careers@pulsesocial.example?subject=Application%20%E2%80%94%20Graphic%20Designer">Apply Now</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PORTFOLIO ============ -->
+  <section id="portfolio">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Portfolio</span>
+        <h2>Work that moved the needle.</h2>
+        <p>A few of the brands we've grown — from scrappy DTC startups to established lifestyle labels.</p>
+      </div>
+
+      <div class="portfolio-grid">
+        <article class="portfolio-card reveal">
+          <div class="portfolio-thumb p1">NB</div>
+          <div class="portfolio-info">
+            <span class="platform">Instagram</span>
+            <h3>Northbound Coffee</h3>
+            <div class="result">Grew following by 240% in 6 months</div>
+          </div>
+          <div class="portfolio-overlay"><span>View Case Study →</span></div>
+        </article>
+
+        <article class="portfolio-card reveal delay-1">
+          <div class="portfolio-thumb p2">LX</div>
+          <div class="portfolio-info">
+            <span class="platform">TikTok</span>
+            <h3>Luxe Skincare</h3>
+            <div class="result">3.2M views on first 4 videos</div>
+          </div>
+          <div class="portfolio-overlay"><span>View Case Study →</span></div>
+        </article>
+
+        <article class="portfolio-card reveal delay-2">
+          <div class="portfolio-thumb p3">RV</div>
+          <div class="portfolio-info">
+            <span class="platform">LinkedIn</span>
+            <h3>Riverline B2B</h3>
+            <div class="result">Inbound leads up 5x QoQ</div>
+          </div>
+          <div class="portfolio-overlay"><span>View Case Study →</span></div>
+        </article>
+
+        <article class="portfolio-card reveal delay-1">
+          <div class="portfolio-thumb p4">FT</div>
+          <div class="portfolio-info">
+            <span class="platform">Instagram</span>
+            <h3>Field &amp; Trail</h3>
+            <div class="result">Drove $180K in shop revenue</div>
+          </div>
+          <div class="portfolio-overlay"><span>View Case Study →</span></div>
+        </article>
+
+        <article class="portfolio-card reveal delay-2">
+          <div class="portfolio-thumb p5">OB</div>
+          <div class="portfolio-info">
+            <span class="platform">TikTok</span>
+            <h3>Olive &amp; Birch</h3>
+            <div class="result">Grew following by 200% in 90 days</div>
+          </div>
+          <div class="portfolio-overlay"><span>View Case Study →</span></div>
+        </article>
+
+        <article class="portfolio-card reveal delay-3">
+          <div class="portfolio-thumb p6">KN</div>
+          <div class="portfolio-info">
+            <span class="platform">Meta Ads</span>
+            <h3>Kindling Studio</h3>
+            <div class="result">4.2x ROAS across 8 campaigns</div>
+          </div>
+          <div class="portfolio-overlay"><span>View Case Study →</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BANNER ============ -->
+  <section class="cta-banner" id="contact">
+    <div class="container">
+      <div class="cta-banner-inner reveal">
+        <div>
+          <h2>Let's Work Together</h2>
+          <p>Tell us about your brand. We'll send a free social audit within 48 hours.</p>
+        </div>
+        <a class="btn btn-primary" href="mailto:hello@pulsesocial.example?subject=New%20Project%20Inquiry">hello@pulsesocial.example</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#home" class="logo">
+            <span class="logo-mark">P</span>
+            <span>Pulse Social</span>
+          </a>
+          <p>A small, sharp social media agency growing modern brands across Meta, TikTok, and beyond.</p>
+        </div>
+
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#careers">Careers</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">Management</a></li>
+            <li><a href="#services">Content</a></li>
+            <li><a href="#services">Paid Ads</a></li>
+            <li><a href="#services">Strategy</a></li>
+            <li><a href="#services">Analytics</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Follow Us</h4>
+          <div class="socials" style="justify-content:flex-start;">
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V10.5H5.67v7.84h2.67zM7 9.34a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.34 9V14.1c0-2.55-1.36-3.74-3.18-3.74-1.47 0-2.13.81-2.5 1.38v-1.18h-2.66c.04.76 0 7.78 0 7.78h2.66v-4.37c0-.24.02-.48.09-.65.19-.48.62-.97 1.36-.97.96 0 1.34.73 1.34 1.8v4.19h2.69z"/></svg></a>
+            <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22.46 5.92c-.77.34-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.58 8.58 0 0 1-2.72 1.04A4.28 4.28 0 0 0 11.8 9.2 12.14 12.14 0 0 1 3 4.7a4.28 4.28 0 0 0 1.32 5.71 4.25 4.25 0 0 1-1.94-.54v.05a4.28 4.28 0 0 0 3.43 4.2 4.3 4.3 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.97A8.59 8.59 0 0 1 2 18.95a12.12 12.12 0 0 0 6.56 1.92c7.88 0 12.19-6.53 12.19-12.19l-.01-.56a8.7 8.7 0 0 0 2.13-2.2z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.51.01-4.75.07-1.07.05-1.65.23-2.04.38-.51.2-.88.44-1.27.82-.38.39-.62.76-.82 1.27-.15.39-.33.97-.38 2.04-.06 1.24-.07 1.6-.07 4.75s.01 3.51.07 4.75c.05 1.07.23 1.65.38 2.04.2.51.44.88.82 1.27.39.38.76.62 1.27.82.39.15.97.33 2.04.38 1.24.06 1.6.07 4.75.07s3.51-.01 4.75-.07c1.07-.05 1.65-.23 2.04-.38a3.4 3.4 0 0 0 1.27-.82c.38-.39.62-.76.82-1.27.15-.39.33-.97.38-2.04.06-1.24.07-1.6.07-4.75s-.01-3.51-.07-4.75c-.05-1.07-.23-1.65-.38-2.04-.2-.51-.44-.88-.82-1.27a3.4 3.4 0 0 0-1.27-.82c-.39-.15-.97-.33-2.04-.38-1.24-.06-1.6-.07-4.75-.07zm0 2.76a5.46 5.46 0 1 1 0 10.92 5.46 5.46 0 0 1 0-10.92zm0 1.62a3.84 3.84 0 1 0 0 7.68 3.84 3.84 0 0 0 0-7.68zm5.65-2.93a1.28 1.28 0 1 1 0 2.56 1.28 1.28 0 0 1 0-2.56z"/></svg></a>
+            <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .59.04.86.14V9.4a6.34 6.34 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.66a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.09z"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> Pulse Social. All rights reserved.</span>
+        <span><a href="mailto:hello@pulsesocial.example">hello@pulsesocial.example</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // Sticky nav shadow on scroll
+      const nav = document.getElementById('nav');
+      const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Mobile menu toggle
+      const toggle = document.getElementById('navToggle');
+      const navLinks = document.getElementById('navLinks');
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+      // Close menu on link click (mobile)
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          if (nav.classList.contains('open')) {
+            nav.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+
+      // IntersectionObserver fade-in
+      const reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => io.observe(el));
+      } else {
+        reveals.forEach(el => el.classList.add('in'));
+      }
+
+      // Dynamic year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
